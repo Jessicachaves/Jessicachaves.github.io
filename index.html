@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jéssica Jesus Chaves | Desenvolvedora Back-end</title>
+<meta name="description" content="Desenvolvedora Back-end com 6 anos de experiência em Node.js, TypeScript e Python: APIs, microsserviços, automação e integração de sistemas.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A9%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f5f7fa;--surface:#fff;--ink:#16203a;--muted:#5a6580;--line:#d8deea;--accent:#0b8f7f;--accent-ink:#06574d;--code-bg:#101a30;--code-ink:#dfe7f7;--code-key:#7fd6c8;--code-str:#f2c879;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1424;--surface:#141d33;--ink:#e6ebf7;--muted:#9aa7c4;--line:#26314d;--accent:#3fd0bc;--accent-ink:#7ee6d6;--code-bg:#080e1c}}
+:root[data-theme="dark"]{--bg:#0d1424;--surface:#141d33;--ink:#e6ebf7;--muted:#9aa7c4;--line:#26314d;--accent:#3fd0bc;--accent-ink:#7ee6d6;--code-bg:#080e1c}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:20px;align-items:center;height:54px;overflow-x:auto;white-space:nowrap}
+nav a{text-decoration:none;color:var(--muted);font-size:15px}
+nav a:hover{color:var(--ink)}
+nav .sp{flex:1}
+nav button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 0 56px}
+h1{font:700 clamp(40px,7vw,68px)/1.02 Georgia,"Times New Roman",serif;margin:0 0 18px;letter-spacing:-.02em}
+.role{font-size:20px;color:var(--accent-ink);margin:0 0 16px;font-weight:600}
+.lead{color:var(--muted);margin:0 0 26px;max-width:46ch}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:11px 20px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid var(--ink);color:var(--ink)}
+.btn.main{background:var(--ink);color:var(--bg)}
+pre.res{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:20px 22px;font:14px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-x:auto;border:1px solid var(--line)}
+.res .req{color:var(--muted);display:block;margin-bottom:6px}.res .ok{color:var(--code-key)}.res .k{color:var(--code-key)}.res .s{color:var(--code-str)}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font:700 30px/1.2 Georgia,"Times New Roman",serif;margin:0 0 28px;letter-spacing:-.01em}
+.about p{max-width:68ch;margin:0 0 16px}
+.about p:last-child{margin:0}
+.job{display:grid;grid-template-columns:190px 1fr;gap:8px 32px;padding:0 0 34px}
+.job .when{color:var(--muted);font-size:15px}
+.job h3{margin:0;font-size:19px}
+.job .org{color:var(--muted);margin:0 0 10px}
+.job ul{margin:0;padding-left:20px}
+.job li{margin-bottom:6px}
+.tags{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.old{color:var(--muted);font-size:15px;margin:0}
+.proj{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:24px 0;border-top:1px solid var(--line)}
+.proj:first-of-type{border-top:0;padding-top:0}
+.proj h3{margin:0;font-size:20px}
+.proj p{margin:6px 0 8px;max-width:64ch}
+.proj .tags{margin:0}
+.proj a.go{align-self:start;white-space:nowrap;font-weight:600}
+dl.skills{display:grid;grid-template-columns:200px 1fr;gap:14px 32px;margin:0}
+dl.skills dt{font-weight:700}
+dl.skills dd{margin:0;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two p{margin:0 0 4px}.two .m{color:var(--muted);font-size:15px;margin:0 0 14px}
+.contact{font-size:19px}
+.contact li{margin-bottom:8px;list-style:none}
+.contact ul{padding:0;margin:0}
+footer{padding:28px 0 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:44px}.job,dl.skills,.two,.proj{grid-template-columns:1fr}.proj a.go{justify-self:start}}
+@media print{nav,.btns{display:none}body{background:#fff;color:#000}section{padding:24px 0;break-inside:avoid}}
+</style>
+</head>
+<body>
+<nav aria-label="Seções"><div class="wrap">
+<a href="#sobre">Sobre</a><a href="#experiencia">Experiência</a><a href="#projetos">Projetos</a><a href="#competencias">Competências</a><a href="#formacao">Formação</a><a href="#contato">Contato</a>
+<span class="sp"></span><button id="theme" type="button" aria-label="Alternar tema claro e escuro">Tema</button>
+</div></nav>
+
+<main class="wrap">
+<header class="hero">
+<div>
+<h1>Jéssica Jesus Chaves</h1>
+<p class="role">Desenvolvedora Back-end</p>
+<p class="lead">Seis anos construindo APIs, microsserviços e integrações em ambientes corporativos de grande porte, com foco em performance, segurança e observabilidade.</p>
+<div class="btns">
+<a class="btn main" href="#contato">Vamos conversar</a>
+<a class="btn" href="https://github.com/Jessicachaves" target="_blank" rel="noopener">GitHub</a>
+<a class="btn" href="https://www.linkedin.com/in/jessica-jesus-chaves/" target="_blank" rel="noopener">LinkedIn</a>
+</div>
+</div>
+<pre class="res" aria-label="Resumo do perfil em formato de resposta de API"><span class="req">GET /jessica</span><span class="ok">200 OK</span>
+{
+  <span class="k">"cargo"</span>: <span class="s">"Back-end"</span>,
+  <span class="k">"experiencia"</span>: <span class="s">"6 anos"</span>,
+  <span class="k">"stack"</span>: [<span class="s">"Node.js"</span>, <span class="s">"TypeScript"</span>, <span class="s">"Python"</span>],
+  <span class="k">"cloud"</span>: [<span class="s">"GCP"</span>, <span class="s">"Azure"</span>],
+  <span class="k">"foco"</span>: [<span class="s">"APIs"</span>, <span class="s">"automação"</span>, <span class="s">"IA"</span>],
+  <span class="k">"local"</span>: <span class="s">"Rio de Janeiro, RJ"</span>,
+  <span class="k">"disponivel"</span>: <span class="s">true</span>
+}</pre>
+</header>
+
+<section id="sobre" class="about">
+<h2>Sobre</h2>
+<p>Gosto de resolver problemas complexos com código limpo e arquiteturas que entregam valor ao negócio. Atuo com Node.js, TypeScript e Python na criação de APIs REST, microsserviços e integração entre sistemas, com experiência em nuvem (GCP e Azure), bancos relacionais e NoSQL, testes e monitoramento.</p>
+<p>Participei de projetos críticos para a TIM Brasil, da migração de sistemas legados ao desenvolvimento de APIs e automações. Também uso agentes de IA (Cursor, Claude, Copilot) no dia a dia e construo projetos próprios com LLMs, OCR e Docker.</p>
+</section>
+
+<section id="experiencia">
+<h2>Experiência</h2>
+<article class="job">
+<div class="when">Mai/2025 – atual</div>
+<div><h3>Desenvolvedora Back-end</h3><p class="org">Altran · Projeto TIM Brasil</p>
+<ul>
+<li>Automatizei processos do sistema XTTS e sua integração com as plataformas Sonar e Pegasus, eliminando etapas manuais no atendimento.</li>
+<li>Migrei um sistema legado para uma nova arquitetura back-end em Node.js, com deploy em Linux e Nginx.</li>
+<li>Reduzi em até 40% o tempo de execução de relatórios críticos e em 60% o tempo de detecção de falhas, com monitoramento em Grafana.</li>
+</ul>
+<p class="tags">Node.js · TypeScript · Python · MySQL · SQL Server · Power BI · Nginx · PM2 · Grafana</p></div>
+</article>
+<article class="job">
+<div class="when">Out/2023 – Mai/2025</div>
+<div><h3>Desenvolvedora Back-end</h3><p class="org">Líder BPO</p>
+<ul>
+<li>Desenvolvi back-ends, microsserviços e bots de RPA com Power Automate para automatizar o cadastro de funcionários terceiros da TIM, integrados a SAP e XTTS.</li>
+<li>Criei APIs REST e integrações em PHP com o sistema Sonar, reduzindo em 30% o tempo médio de atendimento.</li>
+</ul>
+<p class="tags">TypeScript · Node.js · Power Automate · PHP · APIs REST · SAP · Active Directory</p></div>
+</article>
+<article class="job">
+<div class="when">Out/2021 – Out/2023</div>
+<div><h3>Desenvolvedora Back-end</h3><p class="org">Triad Systems</p>
+<ul>
+<li>Desenvolvi ferramentas web internas e rotinas de back-end (Node.js/Express) para integração com APIs de parceiros, aplicando padrões de projeto.</li>
+<li>Revisei código e padronizei fluxos e documentação, reduzindo em 25% os erros de integração.</li>
+</ul>
+<p class="tags">TypeScript · Angular · Node.js · Express · MySQL · Git</p></div>
+</article>
+<article class="job">
+<div class="when">Dez/2020 – Set/2021</div>
+<div><h3>Desenvolvedora Back-end</h3><p class="org">Atento Brasil</p>
+<ul>
+<li>Migrei processos manuais para automações com Power Automate Desktop e scripts Python, e mantive servidores Windows e Linux.</li>
+</ul></div>
+</article>
+<p class="old">Antes de desenvolver, trabalhei cinco anos em operações de telecomunicações (2015–2019), em projetos da TIM Live: Atento, Neobpo, Ezentis e Altran Brasil.</p>
+</section>
+
+<section id="projetos">
+<h2>Projetos</h2>
+<article class="proj">
+<div><h3>EduReforço</h3>
+<p>Plataforma SaaS de reforço escolar com IA: tutor com LLM (Groq/LLaMA 3.3), OCR para digitalizar exercícios, gamificação e planos de assinatura com limite de uso por plano.</p>
+<p class="tags">FastAPI · SQLAlchemy · JWT · Next.js · TypeScript · Tesseract</p></div>
+<a class="go" href="https://github.com/Jessicachaves/edureforco-app" target="_blank" rel="noopener">Ver código</a>
+</article>
+<article class="proj">
+<div><h3>Meta CAPI</h3>
+<p>Microsserviço de tracking server-side que recebe webhooks de pagamento e envia conversões à API da Meta, com assinatura HMAC validada, dados pessoais protegidos com SHA-256 (LGPD) e desduplicação de eventos.</p>
+<p class="tags">Node.js · Express · Webhooks · HMAC · Meta Graph API</p></div>
+<a class="go" href="https://github.com/Jessicachaves/api-tracking-server" target="_blank" rel="noopener">Ver código</a>
+</article>
+<article class="proj">
+<div><h3>Radar de Preços</h3>
+<p>Comparador de preços multilojas com busca assíncrona em Amazon, Mercado Livre, KaBuM! e Buscapé, alertas de preço-alvo, interface web e bot do Telegram, pronto para rodar em Docker.</p>
+<p class="tags">Python · FastAPI · Playwright · SQLite · Docker</p></div>
+<a class="go" href="https://github.com/Jessicachaves/price-hunter-bot" target="_blank" rel="noopener">Ver código</a>
+</article>
+</section>
+
+<section id="competencias">
+<h2>Competências</h2>
+<dl class="skills">
+<dt>Linguagens</dt><dd>Node.js, TypeScript, JavaScript, Python, PHP, Express, FastAPI</dd>
+<dt>Arquitetura</dt><dd>APIs REST, microsserviços, arquitetura orientada a eventos, design patterns</dd>
+<dt>Bancos de dados</dt><dd>MySQL, SQL Server, PostgreSQL, MongoDB, SQLite; otimização de consultas e índices</dd>
+<dt>Nuvem e DevOps</dt><dd>GCP, Azure, Docker, Git, CI/CD, Linux, Windows Server, Nginx, PM2</dd>
+<dt>Observabilidade</dt><dd>Grafana, Power BI, diagnóstico de gargalos por logs e métricas</dd>
+<dt>Automação e IA</dt><dd>Power Automate, RPA, web scraping, integração com LLMs, OCR, agentes de IA no desenvolvimento</dd>
+<dt>Segurança</dt><dd>JWT, controle de acesso, rate limiting, validação de webhooks (HMAC), SHA-256 e LGPD</dd>
+</dl>
+</section>
+
+<section id="formacao">
+<h2>Formação e idiomas</h2>
+<div class="two">
+<div><p><strong>Análise e Desenvolvimento de Sistemas</strong></p><p class="m">Universidade Estácio de Sá · concluído em dez/2020</p></div>
+<div><p><strong>Português</strong> · nativo</p><p><strong>Inglês</strong> · técnico, leitura e escrita de documentação</p></div>
+</div>
+</section>
+
+<section id="contato">
+<h2>Contato</h2>
+<ul class="contact">
+<li><a href="mailto:jessikavond@gmail.com">jessikavond@gmail.com</a></li>
+<li><a href="https://www.linkedin.com/in/jessica-jesus-chaves/" target="_blank" rel="noopener">linkedin.com/in/jessica-jesus-chaves</a></li>
+<li><a href="https://github.com/Jessicachaves" target="_blank" rel="noopener">github.com/Jessicachaves</a></li>
+</ul>
+</section>
+</main>
+
+<footer><div class="wrap">Jéssica Jesus Chaves · Rio de Janeiro, RJ</div></footer>
+
+<script>
+(function(){
+var root=document.documentElement,btn=document.getElementById('theme');
+try{var s=localStorage.getItem('theme');if(s)root.setAttribute('data-theme',s)}catch(e){}
+btn.addEventListener('click',function(){
+var dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+var next=dark?'light':'dark';root.setAttribute('data-theme',next);
+try{localStorage.setItem('theme',next)}catch(e){}
+});
+})();
+</script>
+</body>
+</html>
