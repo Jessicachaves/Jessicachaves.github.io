@@ -63,6 +63,26 @@ summary{font-family:var(--mono);font-size:13px}
 .job::before{background:var(--bg);border:2px solid var(--accent);transition:background .25s}
 .job:hover,.job:focus-within,.job.sel{background:var(--surface);border-color:color-mix(in srgb,var(--accent) 45%,transparent);box-shadow:0 14px 34px rgba(0,0,0,.35)}
 .job:hover::before,.job:focus-within::before,.job.sel::before{background:var(--accent)}
+.stats{border-radius:10px;margin-bottom:48px}
+.stats div{padding:14px 18px}
+.stats b{font:600 20px/1.2 var(--mono);margin-bottom:2px;color:var(--accent-ink)}
+.stats span{font-size:11px;line-height:1.4}
+.job{border-radius:10px}
+.job:hover,.job:focus-within,.job.sel{border-color:color-mix(in srgb,var(--accent) 26%,transparent);background:color-mix(in srgb,var(--surface) 92%,var(--accent) 3%);box-shadow:0 0 36px color-mix(in srgb,var(--accent) 7%,transparent),0 8px 24px rgba(0,0,0,.18)}
+.job::before{box-shadow:0 0 0 4px var(--bg)}
+.job:hover::before,.job:focus-within::before,.job.sel::before{box-shadow:0 0 0 4px var(--bg),0 0 14px color-mix(in srgb,var(--accent) 55%,transparent)}
+.stats b{font:600 15px/1.3 var(--mono)}
+.stats div{padding:10px 16px}
+.stats span{font-size:10.5px}
+.stats{margin-bottom:40px}
+h2{font-size:12px;gap:14px}
+h2::before{width:32px;height:32px;font-size:11px}
+:root{--card-border:#1d5b66}:root[data-theme="light"]{--card-border:#a9d6dc}
+.job{border-radius:10px}
+.job.sel{background:var(--surface);border-color:var(--card-border);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.job:hover:not(.sel),.job:focus-within:not(.sel){background:transparent;border-color:transparent;box-shadow:none}
+.job:hover:not(.sel)::before,.job:focus-within:not(.sel)::before{background:var(--bg);box-shadow:0 0 0 4px var(--bg)}
+.job.sel::before{background:var(--accent);box-shadow:0 0 0 4px var(--bg),0 0 0 6px color-mix(in srgb,var(--accent) 22%,transparent)}
 .role{font-size:20px;color:var(--accent-ink);margin:0 0 16px;font-weight:600}
 .lead{color:var(--muted);margin:0 0 26px;max-width:46ch}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
@@ -99,6 +119,79 @@ dl.skills dd{margin:0;color:var(--muted)}
 footer{padding:28px 0 40px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
 @media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:44px}.job,dl.skills,.two,.proj{grid-template-columns:1fr}.proj a.go{justify-self:start}}
 @media print{nav,.btns{display:none}body{background:#fff;color:#000}section{padding:24px 0;break-inside:avoid}}
+/* ajustes finais (vencem as regras anteriores) */
+h2{font:600 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:14px;margin:0 0 30px}
+.job{display:block;position:relative;margin:0 0 26px 34px;padding:24px 28px;border:1px solid transparent;border-radius:6px;background:transparent;min-width:0}
+.job>div{display:flex;flex-direction:column;min-width:0}
+.job>div>*{order:7}
+.job>div>.org{order:1;margin:0 0 4px;padding-right:150px}
+.job>div>h3{order:2;margin:0 0 14px;font-size:24px;line-height:1.25}
+.job>div>.res{order:3;margin:0 0 14px}
+.job>div>.tags{order:4;margin:0 0 16px}
+.job>div>ul{order:5;margin:0;padding-left:20px}
+.job>div>details{order:6}
+.job .when{position:absolute;top:26px;right:28px;float:none;font:12px var(--mono);color:var(--accent-ink)}
+.job li{overflow-wrap:anywhere}
+@media (max-width:760px){.job{margin-left:22px;padding:18px}.job>div>.org{padding-right:0}.job .when{position:static;display:block;margin-bottom:8px}}
+.job .res{margin:0 0 14px}
+h3.sub{font:600 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 10px 34px}
+.old{margin:0 0 18px 34px}
+.prev{margin-left:34px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prev p{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:6px;font-size:15px;color:var(--muted)}
+.prev strong{color:var(--ink)}.prev span{display:block;font:12px var(--mono);color:var(--accent-ink);margin:2px 0 4px}
+.proj ul{margin:0 0 10px;padding-left:20px}.proj li{margin-bottom:6px}
+@media (max-width:760px){.prev{grid-template-columns:1fr;margin-left:22px}h3.sub,.old{margin-left:22px}}
+.sk-intro{color:var(--muted);margin:0 0 20px;max-width:64ch}
+.sk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.sk-tabs button{font:13px var(--mono);padding:11px 16px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:6px;cursor:pointer;transition:background .2s,color .2s}
+.sk-tabs button:hover{border-color:var(--card-border)}
+.sk-tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#04141b;font-weight:600}
+.sk-panel{background:var(--surface);border:1px solid var(--card-border);border-radius:8px;padding:26px 28px}
+.sk-panel[hidden]{display:none}
+.sk-panel h3{margin:0 0 18px;font-size:22px}
+.sk-label{margin:18px 0 10px;font-size:13px;color:var(--muted)}
+.sk-panel h3+.sk-label{margin-top:0}
+.sk-chips{display:flex;flex-wrap:wrap;gap:10px}
+.sk-chip{font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--bg) 70%,transparent);color:var(--ink)}
+.sk-chip.sm{font:12px var(--mono);padding:4px 10px}
+.sk-sep{border-top:1px dashed var(--line);margin:24px 0 0}
+@media (max-width:760px){.sk-panel{padding:20px 18px}.sk-tabs button{padding:9px 12px}}
+@media print{.sk-tabs{display:none}.sk-panel[hidden]{display:block}.sk-panel{margin-bottom:12px}}
+/* polimento visual */
+:root{--ink-soft:#c3d6dc}:root[data-theme="light"]{--ink-soft:#2f4b55}
+body{font-size:16px;line-height:1.7}
+.hero{grid-template-columns:1fr 410px;gap:48px;padding:52px 0 44px}
+.avatar{width:104px;height:104px;margin-bottom:20px}
+h1{font:700 clamp(38px,5.6vw,58px)/1.05 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:-.025em;margin-bottom:12px}
+.role{font:600 15px var(--mono);letter-spacing:.04em;margin-bottom:18px}
+.lead{font-size:17px;max-width:48ch}
+pre.res{font-size:12.5px;line-height:1.75;padding:20px 22px;border-radius:8px;background:var(--code-bg)}
+.btn{font:600 14px var(--mono);padding:11px 18px;border-radius:6px;border:1px solid var(--line);color:var(--ink);background:transparent}
+.btn:hover{border-color:var(--accent)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:#04141b}
+.stats{margin-bottom:28px}.stats span{display:block;line-height:1.45}
+.about p,.job li,.proj li{color:var(--ink-soft)}
+.about p{font-size:16.5px}
+.job li,.proj li{line-height:1.65;margin-bottom:9px}
+.job li::marker,.proj li::marker{color:var(--accent)}
+.job>div>h3{font-size:22px;font-weight:600;margin-bottom:16px}
+.job>div>ul{margin-top:2px}
+.prev br{display:none}.prev p{line-height:1.55}.prev span{margin:2px 0 8px}
+.proj,.proj:first-of-type{border:1px solid var(--line);border-radius:8px;padding:24px 28px;margin-bottom:16px;background:color-mix(in srgb,var(--surface) 55%,transparent);transition:border-color .25s,background .25s}
+.proj:hover{border-color:var(--card-border);background:var(--surface)}
+.proj h3{font-size:21px;font-weight:600}
+.proj .ch{color:var(--muted);margin:8px 0 14px}.proj .ch strong{color:var(--accent-ink);font-weight:600}
+.proj a.go{font:600 13px var(--mono);text-decoration:none;color:var(--accent-ink);border:1px solid var(--card-border);padding:7px 14px;border-radius:6px;transition:background .2s}
+.proj a.go:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.proj .tags{margin-top:16px}
+.two>div{padding:18px 22px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--surface) 55%,transparent)}
+.two .m{margin-bottom:0}
+ul.contact{display:flex;flex-wrap:wrap;gap:12px;padding:0;margin:0}
+ul.contact li{margin:0;list-style:none}
+ul.contact a{display:block;font:600 14px var(--mono);text-decoration:none;color:var(--ink);padding:12px 18px;border:1px solid var(--line);border-radius:6px;background:color-mix(in srgb,var(--surface) 55%,transparent);transition:border-color .2s}
+ul.contact a:hover{border-color:var(--accent);color:var(--accent-ink)}
+section{padding:60px 0}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.proj,.proj:first-of-type{padding:20px}}
 </style>
 </head>
 <body>
@@ -139,73 +232,31 @@ footer{padding:28px 0 40px;color:var(--muted);font-size:14px;border-top:1px soli
 
 <section id="sobre" class="about">
 <h2>Sobre</h2>
-<p>Gosto de resolver problemas complexos com código limpo e arquiteturas que entregam valor ao negócio. Atuo com Node.js, TypeScript e Python na criação de APIs REST, microsserviços e integração entre sistemas, com experiência em nuvem (GCP e Azure), bancos relacionais e NoSQL, testes e monitoramento.</p>
-<p>Participei de projetos críticos para a TIM Brasil, da migração de sistemas legados ao desenvolvimento de APIs e automações. Também uso agentes de IA (Cursor, Claude, Copilot) no dia a dia e construo projetos próprios com LLMs, OCR e Docker.</p>
+<p>Desenvolvedora Backend com 6 anos de experiência desenhando, desenvolvendo e mantendo soluções de software em ambientes corporativos de grande porte, com atuação em projetos para a TIM Brasil. Domínio de Node.js, TypeScript e Python para construção de APIs REST e integração entre sistemas, com foco em performance, testes automatizados, monitoramento/observabilidade (Grafana, Power BI) e segurança da informação.</p>
+<p>Experiência com nuvem (GCP e Azure), bancos relacionais (MySQL, SQL Server) e NoSQL (MongoDB), versionamento com Git, metodologias ágeis (Scrum/Kanban) e uso de agentes de IA (Copilot, Claude, Cursor) no dia a dia de desenvolvimento. Também desenvolvo aplicações com IA generativa (LLMs, OCR) e projetos próprios com FastAPI, Next.js e Docker.</p>
 </section>
 
 <section id="experiencia">
 <h2>Experiência</h2>
-<article class="job">
-<div class="when">Mai/2025 – atual</div>
-<div><h3>Desenvolvedora Back-end</h3><p class="org">Altran · Projeto TIM Brasil<span class="badge">Cargo atual</span></p><p class="res"><strong>Resultado:</strong> relatórios críticos até 40% mais rápidos e falhas detectadas 60% mais cedo.</p>
-<ul><li>Automatizei processos do sistema XTTS e sua integração com as plataformas Sonar e Pegasus, eliminando etapas manuais no atendimento.</li></ul><details><summary>Ver responsabilidades</summary><ul><li>Migrei um sistema legado para uma nova arquitetura back-end em Node.js, com deploy em Linux e Nginx.</li><li>Reduzi em até 40% o tempo de execução de relatórios críticos e em 60% o tempo de detecção de falhas, com monitoramento em Grafana.</li></ul></details>
-<p class="tags"><span>Node.js</span><span>TypeScript</span><span>Python</span><span>MySQL</span><span>SQL Server</span><span>Power BI</span><span>Nginx</span><span>PM2</span><span>Grafana</span></p></div>
-</article>
-<article class="job">
-<div class="when">Out/2023 – Mai/2025</div>
-<div><h3>Desenvolvedora Back-end</h3><p class="org">Líder BPO</p><p class="res"><strong>Resultado:</strong> tempo médio de atendimento 30% menor com automações e APIs integradas.</p>
-<ul><li>Desenvolvi back-ends, microsserviços e bots de RPA com Power Automate para automatizar o cadastro de funcionários terceiros da TIM, integrados a SAP e XTTS.</li></ul><details><summary>Ver responsabilidades</summary><ul><li>Criei APIs REST e integrações em PHP com o sistema Sonar, reduzindo em 30% o tempo médio de atendimento.</li></ul></details>
-<p class="tags"><span>TypeScript</span><span>Node.js</span><span>Power Automate</span><span>PHP</span><span>APIs REST</span><span>SAP</span><span>Active Directory</span></p></div>
-</article>
-<article class="job">
-<div class="when">Out/2021 – Out/2023</div>
-<div><h3>Desenvolvedora Back-end</h3><p class="org">Triad Systems</p><p class="res"><strong>Resultado:</strong> 25% menos erros de integração com revisão de código e padronização.</p>
-<ul><li>Desenvolvi ferramentas web internas e rotinas de back-end (Node.js/Express) para integração com APIs de parceiros, aplicando padrões de projeto.</li></ul><details><summary>Ver responsabilidades</summary><ul><li>Revisei código e padronizei fluxos e documentação, reduzindo em 25% os erros de integração.</li></ul></details>
-<p class="tags"><span>TypeScript</span><span>Angular</span><span>Node.js</span><span>Express</span><span>MySQL</span><span>Git</span></p></div>
-</article>
-<article class="job">
-<div class="when">Dez/2020 – Set/2021</div>
-<div><h3>Desenvolvedora Back-end</h3><p class="org">Atento Brasil</p>
-<ul>
-<li>Migrei processos manuais para automações com Power Automate Desktop e scripts Python, e mantive servidores Windows e Linux.</li>
-</ul></div>
-</article>
-<p class="old">Antes de desenvolver, trabalhei cinco anos em operações de telecomunicações (2015–2019), em projetos da TIM Live: Atento, Neobpo, Ezentis e Altran Brasil.</p>
+<article class="job"><div class="when">Mai/2025 – atual</div><div><h3>Desenvolvedora Back-end</h3><p class="org">Altran · Projeto TIM Brasil<span class="badge">Cargo atual</span></p><p class="res"><strong>Resultado:</strong> relatórios críticos até 40% mais rápidos e falhas detectadas 60% mais cedo.</p><p class="tags"><span>Python</span><span>TypeScript</span><span>Power Automate</span><span>Node.js</span><span>MySQL</span><span>SQL Server</span><span>Power BI</span><span>Linux</span><span>Windows Server</span><span>Nginx</span><span>PM2</span><span>Grafana</span></p><ul><li>Automatizei processos do sistema XTTS e sua integração com as plataformas Sonar e Pegasus, eliminando etapas manuais no fluxo de atendimento</li><li>Reprojetei e migrei sistema legado para uma nova arquitetura backend em Node.js, aplicando boas práticas de design de código e realizando deploy em Linux e Nginx para maior escalabilidade e manutenibilidade</li><li>Otimizei relatórios e consultas sobre grandes volumes de dados, reduzindo em até 40% o tempo de execução dos relatórios críticos</li><li>Implementei observabilidade e monitoramento (Grafana) das aplicações e servidores críticos, reduzindo em 60% o tempo de detecção e resposta a falhas</li></ul></div></article>
+<article class="job"><div class="when">Out/2023 – Mai/2025</div><div><h3>Desenvolvedora Back-end</h3><p class="org">Líder BPO</p><p class="res"><strong>Resultado:</strong> tempo médio de atendimento 30% menor com automações e APIs integradas.</p><p class="tags"><span>TypeScript</span><span>Node.js</span><span>Power Automate</span><span>RPA</span><span>PHP</span><span>APIs REST</span><span>SAP</span><span>XTTS</span><span>Sonar</span><span>Active Directory</span><span>Windows Server</span><span>Linux</span></p><ul><li>Atuei no desenvolvimento de aplicações back-end, microsserviços e soluções avançadas de RPA, otimizando fluxos corporativos críticos e reduzindo o tempo médio de atendimento em 30%</li><li>Projetei e desenvolvi bots complexos utilizando Power Automate para automatizar todo o ciclo de cadastro de funcionários terceiros da TIM, incluindo criação sistêmica de logins, manipulação de dados em planilhas e integração com sistemas corporativos robustos como SAP e XTTS</li><li>Construí a ponte entre sistemas ao implementar integrações dessas automações com serviços em PHP e desenvolver APIs REST que se comunicam nativamente com o sistema Sonar, viabilizando a abertura e gestão automatizada de demandas</li><li>Garanti velocidade operacional aliada à forte governança de acessos, segurança na manipulação de dados e escalabilidade para o negócio</li></ul></div></article>
+<article class="job"><div class="when">Out/2021 – Out/2023</div><div><h3>Desenvolvedora Back-end</h3><p class="org">Triad Systems</p><p class="res"><strong>Resultado:</strong> 25% menos erros de integração com revisão de código e padronização.</p><p class="tags"><span>TypeScript</span><span>Angular</span><span>HTML</span><span>CSS</span><span>Node.js</span><span>Express</span><span>MySQL</span><span>Git</span></p><ul><li>Desenvolvi ferramentas web internas para acompanhamento de demandas, do front-end ao back-end</li><li>Projetei e desenvolvi rotinas de back-end (Node.js/Express) para integração com APIs de sistemas parceiros, aplicando padrões de projeto para reuso e manutenibilidade do código</li><li>Revisei código e padronizei fluxos e documentação técnica junto ao time, identificando pontos de melhoria na base existente e reduzindo em 25% os erros de integração</li></ul></div></article>
+<article class="job"><div class="when">Dez/2020 – Set/2021</div><div><h3>Desenvolvedora Back-end</h3><p class="org">Atento Brasil</p><p class="tags"><span>WinAutomation</span><span>Power Automate Desktop</span><span>Python</span><span>SQL</span><span>Windows Server</span><span>Linux</span></p><ul><li>Migrei processos manuais para automações, reduzindo retrabalho e tempo de atendimento interno</li><li>Criei scripts auxiliares em Python para consultas rápidas a bases de dados</li><li>Atuei na manutenção de servidores internos Windows e Linux</li></ul></div></article>
+<h3 class="sub">Experiência anterior</h3><p class="old">Cinco anos em operações de telecomunicações (2015–2019), com atuação em projetos para a TIM Live.</p><div class="prev"><p><strong>Altran Brasil</strong> · Analista de Telecom<span>Ago/2018 – Dez/2019</span><br>Gestão de equipes de campo regionais, medição de rede (FTTC, GPON, HFC) e aplicação de RNC</p><p><strong>Ezentis</strong> · Monitora de Backoffice<span>Abr/2018 – Jun/2018</span><br>Despacho de ordens de serviço e planejamento de rotas de técnicos</p><p><strong>Neobpo</strong> · Supervisora Operacional<span>Jul/2017 – Abr/2018</span><br>Supervisão da equipe de suporte técnico TIM Live</p><p><strong>Atento Brasil</strong> · Backoffice Telecom<span>Fev/2015 – Jul/2017</span><br>Ativação de links corporativos e aprovisionamento</p></div>
 </section>
 
 <section id="projetos">
-<h2>Projetos</h2>
-<article class="proj">
-<div><h3>EduReforço</h3>
-<p class="ch"><strong>Desafio.</strong> Oferecer reforço escolar personalizado e de baixo custo, com limites de uso por plano.</p><p><strong>O que fiz.</strong> Plataforma SaaS de reforço escolar com IA: tutor com LLM (Groq/LLaMA 3.3), OCR para digitalizar exercícios, gamificação e planos de assinatura com limite de uso por plano.</p>
-<p class="tags"><span>FastAPI</span><span>SQLAlchemy</span><span>JWT</span><span>Next.js</span><span>TypeScript</span><span>Tesseract</span></p></div>
-<a class="go" href="https://github.com/Jessicachaves/edureforco-app" target="_blank" rel="noopener">Ver código</a>
-</article>
-<article class="proj">
-<div><h3>Meta CAPI</h3>
-<p class="ch"><strong>Desafio.</strong> Não perder conversões de venda por bloqueadores de anúncio e restrições de privacidade do iOS.</p><p><strong>O que fiz.</strong> Microsserviço de tracking server-side que recebe webhooks de pagamento e envia conversões à API da Meta, com assinatura HMAC validada, dados pessoais protegidos com SHA-256 (LGPD) e desduplicação de eventos.</p>
-<p class="tags"><span>Node.js</span><span>Express</span><span>Webhooks</span><span>HMAC</span><span>Meta Graph API</span></p></div>
-<a class="go" href="https://github.com/Jessicachaves/api-tracking-server" target="_blank" rel="noopener">Ver código</a>
-</article>
-<article class="proj">
-<div><h3>Radar de Preços</h3>
-<p class="ch"><strong>Desafio.</strong> Comparar preços de várias lojas em segundos, sem confundir o produto buscado com acessórios.</p><p><strong>O que fiz.</strong> Comparador de preços multilojas com busca assíncrona em Amazon, Mercado Livre, KaBuM! e Buscapé, alertas de preço-alvo, interface web e bot do Telegram, pronto para rodar em Docker.</p>
-<p class="tags"><span>Python</span><span>FastAPI</span><span>Playwright</span><span>SQLite</span><span>Docker</span></p></div>
-<a class="go" href="https://github.com/Jessicachaves/price-hunter-bot" target="_blank" rel="noopener">Ver código</a>
-</article>
+<h2>Projetos pessoais</h2>
+<article class="proj"><div><h3>EduReforço</h3><p class="ch"><strong>Desafio.</strong> Oferecer reforço escolar personalizado e de baixo custo, com limites de uso por plano.</p><ul><li>API REST em FastAPI com autenticação JWT (refresh tokens), controle de perfis (aluno/professor/admin) e rate limiting por plano de assinatura</li><li>Integração com LLM (Groq/LLaMA 3.3) para tutoria e geração de exercícios, e OCR (Tesseract) para digitalizar exercícios por foto</li><li>Frontend em Next.js 14 + TypeScript com gamificação (XP, níveis, badges)</li></ul><p class="tags"><span>Python</span><span>FastAPI</span><span>SQLAlchemy</span><span>Pydantic</span><span>JWT</span><span>Next.js</span><span>TypeScript</span><span>Groq/LLaMA</span><span>Tesseract OCR</span></p></div><a class="go" href="https://github.com/Jessicachaves/edureforco-app" target="_blank" rel="noopener">Ver código</a></article>
+<article class="proj"><div><h3>Meta CAPI</h3><p class="ch"><strong>Desafio.</strong> Não perder conversões de venda por bloqueadores de anúncio e restrições de privacidade do iOS.</p><ul><li>Microsserviço Node.js/Express que recebe webhooks de pagamento e envia conversões à API da Meta, mitigando perda de dados por bloqueadores e restrições do iOS</li><li>Validação de assinatura de webhook (HMAC) com timingSafeEqual, hash SHA-256 de dados pessoais (LGPD), desduplicação de eventos e resposta assíncrona ao gateway</li></ul><p class="tags"><span>Node.js</span><span>Express</span><span>Axios</span><span>Webhooks</span><span>HMAC</span><span>SHA-256</span><span>Meta Graph API</span></p></div><a class="go" href="https://github.com/Jessicachaves/api-tracking-server" target="_blank" rel="noopener">Ver código</a></article>
+<article class="proj"><div><h3>Radar de Preços</h3><p class="ch"><strong>Desafio.</strong> Comparar preços de várias lojas em segundos, sem confundir o produto buscado com acessórios.</p><ul><li>Busca paralela assíncrona em Amazon, Mercado Livre, KaBuM! e Buscapé com scrapers em Playwright, destaque do menor preço e alertas de preço-alvo</li><li>API em FastAPI com interface web, persistência em SQLite, bot do Telegram integrado e deploy em container com Docker Compose</li></ul><p class="tags"><span>Python</span><span>FastAPI</span><span>Playwright</span><span>SQLite</span><span>Telegram Bot API</span><span>Docker</span><span>Tailwind CSS</span></p></div><a class="go" href="https://github.com/Jessicachaves/price-hunter-bot" target="_blank" rel="noopener">Ver código</a></article>
 </section>
 
 <section id="competencias">
 <h2>Competências</h2>
-<dl class="skills">
-<dt>Linguagens</dt><dd>Node.js, TypeScript, JavaScript, Python, PHP, Express, FastAPI</dd>
-<dt>Arquitetura</dt><dd>APIs REST, microsserviços, arquitetura orientada a eventos, design patterns</dd>
-<dt>Bancos de dados</dt><dd>MySQL, SQL Server, PostgreSQL, MongoDB, SQLite; otimização de consultas e índices</dd>
-<dt>Nuvem e DevOps</dt><dd>GCP, Azure, Docker, Git, CI/CD, Linux, Windows Server, Nginx, PM2</dd>
-<dt>Observabilidade</dt><dd>Grafana, Power BI, diagnóstico de gargalos por logs e métricas</dd>
-<dt>Automação e IA</dt><dd>Power Automate, RPA, web scraping, integração com LLMs, OCR, agentes de IA no desenvolvimento</dd>
-<dt>Segurança</dt><dd>JWT, controle de acesso, rate limiting, validação de webhooks (HMAC), SHA-256 e LGPD</dd>
-</dl>
+<p class="sk-intro">Tecnologias e práticas que uso no trabalho e nos meus projetos.</p>
+<div class="sk-tabs" role="tablist" aria-label="Áreas de competência"><button type="button" role="tab" id="t0" aria-controls="p0" aria-selected="true">Back-end</button><button type="button" role="tab" id="t1" aria-controls="p1" aria-selected="false">Cloud e DevOps</button><button type="button" role="tab" id="t2" aria-controls="p2" aria-selected="false">Automação e IA</button><button type="button" role="tab" id="t3" aria-controls="p3" aria-selected="false">Segurança e integrações</button></div>
+<div class="sk-panel" role="tabpanel" id="p0" aria-labelledby="t0"><h3>Back-end</h3><p class="sk-label">Linguagens e frameworks</p><div class="sk-chips"><span class="sk-chip">Node.js</span><span class="sk-chip">TypeScript</span><span class="sk-chip">JavaScript</span><span class="sk-chip">Python</span><span class="sk-chip">Express</span><span class="sk-chip">FastAPI</span><span class="sk-chip">PHP</span><span class="sk-chip">APIs REST</span></div><p class="sk-label">Arquitetura e padrões</p><div class="sk-chips"><span class="sk-chip">Microsserviços</span><span class="sk-chip">Monolitos</span><span class="sk-chip">Arquitetura orientada a eventos (EDA)</span><span class="sk-chip">Design Patterns</span><span class="sk-chip">TDD</span><span class="sk-chip">BDD</span><span class="sk-chip">Orientação a objetos</span><span class="sk-chip">Programação estruturada</span><span class="sk-chip">Programação funcional</span></div><p class="sk-label">Bancos de dados</p><div class="sk-chips"><span class="sk-chip">PostgreSQL</span><span class="sk-chip">DataStore</span><span class="sk-chip">MySQL</span><span class="sk-chip">SQL Server</span><span class="sk-chip">MongoDB</span><span class="sk-chip">SQLite</span><span class="sk-chip">SQLAlchemy (ORM)</span><span class="sk-chip">Modelagem e otimização</span><span class="sk-chip">Planos de execução e índices</span><span class="sk-chip">Stored procedures</span><span class="sk-chip">Triggers</span><span class="sk-chip">Backup e restore</span><span class="sk-chip">Versionamento de schemas</span><span class="sk-chip">Controle de acesso</span></div><div class="sk-sep"></div><p class="sk-label">Conhecimentos adicionais em frontend</p><div class="sk-chips"><span class="sk-chip sm">Angular</span><span class="sk-chip sm">Next.js</span><span class="sk-chip sm">HTML</span><span class="sk-chip sm">CSS</span></div></div><div class="sk-panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden><h3>Cloud e DevOps</h3><p class="sk-label">Nuvem</p><div class="sk-chips"><span class="sk-chip">GCP</span><span class="sk-chip">Azure</span></div><p class="sk-label">Infraestrutura e DevOps</p><div class="sk-chips"><span class="sk-chip">Git e Pull Requests</span><span class="sk-chip">Docker</span><span class="sk-chip">Docker Compose</span><span class="sk-chip">CI/CD</span><span class="sk-chip">Linux</span><span class="sk-chip">Windows Server</span><span class="sk-chip">Nginx (reverse proxy e SSL)</span><span class="sk-chip">PM2</span><span class="sk-chip">Active Directory</span></div><p class="sk-label">Monitoramento e performance</p><div class="sk-chips"><span class="sk-chip">Grafana</span><span class="sk-chip">Power BI</span><span class="sk-chip">Logs e métricas</span><span class="sk-chip">journalctl</span><span class="sk-chip">netstat</span><span class="sk-chip">Análise de locks</span><span class="sk-chip">Tempo de resposta de queries</span></div><p class="sk-label">Qualidade e ágil</p><div class="sk-chips"><span class="sk-chip">Testes unitários</span><span class="sk-chip">Qualidade de código</span><span class="sk-chip">Scrum</span><span class="sk-chip">Kanban</span></div></div><div class="sk-panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden><h3>Automação e IA</h3><p class="sk-label">Automação e RPA</p><div class="sk-chips"><span class="sk-chip">WinAutomation</span><span class="sk-chip">Power Automate Desktop</span><span class="sk-chip">Integração via APIs REST</span><span class="sk-chip">Web scraping com Playwright</span><span class="sk-chip">Scripts Python e Node.js</span></div><p class="sk-label">IA aplicada</p><div class="sk-chips"><span class="sk-chip">Integração de LLMs (Groq/LLaMA 3.3)</span><span class="sk-chip">OCR (Tesseract)</span><span class="sk-chip">Geração de conteúdo com IA</span><span class="sk-chip">Agentes de IA: GitHub Copilot, Claude, Cursor</span></div></div><div class="sk-panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden><h3>Segurança e integrações</h3><p class="sk-label">Segurança</p><div class="sk-chips"><span class="sk-chip">JWT</span><span class="sk-chip">Controle de acesso por perfis</span><span class="sk-chip">Rate limiting</span><span class="sk-chip">Validação de webhooks (HMAC)</span><span class="sk-chip">Hash de dados sensíveis (SHA-256/LGPD)</span></div><p class="sk-label">Integrações</p><div class="sk-chips"><span class="sk-chip">APIs de terceiros</span><span class="sk-chip">Webhooks</span><span class="sk-chip">Meta Graph API</span><span class="sk-chip">Telegram Bot API</span></div></div>
 </section>
 
 <section id="formacao">
@@ -247,6 +298,14 @@ addEventListener('scroll',f,{passive:true});f()})();
 <script>
 (function(){var js=[].slice.call(document.querySelectorAll('.job'));if(js[0])js[0].classList.add('sel');
 js.forEach(function(j){j.addEventListener('click',function(){js.forEach(function(o){o.classList.remove('sel')});j.classList.add('sel')})})})();
+</script>
+<script>
+(function(){var js=[].slice.call(document.querySelectorAll('.job'));
+js.forEach(function(j){j.addEventListener('mouseenter',function(){js.forEach(function(o){o.classList.remove('sel')});j.classList.add('sel')})})})();
+</script>
+<script>
+(function(){var bs=[].slice.call(document.querySelectorAll('.sk-tabs button')),ps=[].slice.call(document.querySelectorAll('.sk-panel'));
+bs.forEach(function(b,i){b.addEventListener('click',function(){bs.forEach(function(o,j){o.setAttribute('aria-selected',j===i);ps[j].hidden=j!==i})})})})();
 </script>
 </body>
 </html>
