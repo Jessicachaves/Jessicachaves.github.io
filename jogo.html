@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jéssica Chaves | Portfólio 3D</title>
+<meta name="description" content="Portfólio interativo em 3D de Jéssica Chaves, Desenvolvedora Back-end. Dirija até as placas para conhecer o meu trabalho.">
+<style>
+:root{--bg:#140f1c;--surface:#1e1730;--ink:#f1ecf7;--muted:#a99fbd;--line:#35294a;--accent:#ff7a90;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+.hud{position:fixed;top:0;left:0;right:0;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none}
+.hud>*{pointer-events:auto}
+.hud b{font-size:15px;margin-right:auto;text-shadow:0 1px 8px #000}
+button,.btn{font:12px var(--mono);color:var(--ink);background:color-mix(in srgb,var(--surface) 90%,transparent);border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.btn:hover{border-color:var(--accent)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.main{background:var(--accent);border-color:var(--accent);color:#1a0a12;font-weight:600}
+.lang{display:flex}.lang button{border-radius:0}.lang button:first-child{border-radius:6px 0 0 6px}.lang button:last-child{border-radius:0 6px 6px 0;border-left:0}
+.lang button[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 22%,var(--surface));color:#ffb3c1;font-weight:600}
+.stops{position:fixed;top:calc(58px + env(safe-area-inset-top,0px));left:14px;right:14px;display:flex;gap:6px;overflow-x:auto;white-space:nowrap;padding-bottom:4px}.stops button{flex:none}
+@media (max-width:640px){.hud b{display:none}.hud{justify-content:space-between}}
+.hint{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));font:12px var(--mono);color:var(--muted);text-shadow:0 1px 6px #000;max-width:260px}
+#panel{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);width:min(580px,calc(100% - 28px));background:var(--surface);border:1px solid #5b3a58;border-radius:10px;padding:18px 22px;box-shadow:0 18px 50px rgba(0,0,0,.5);transition:transform .35s cubic-bezier(.2,.8,.2,1);max-height:46vh;overflow:auto}
+#panel.on{transform:translate(-50%,0)}
+#panel h2{margin:0 0 8px;font:600 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#ff9fb0}
+#panel p{margin:0 0 8px}#panel ul{margin:0 0 8px;padding-left:18px}#panel li{margin-bottom:4px}
+#panel a{color:#ff9fb0}
+#panel .m{color:var(--muted);font-size:13px}
+#pad{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:none;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,56px);gap:6px}
+#pad button{font-size:20px;padding:0;border-radius:10px;touch-action:none}
+#pad .u{grid-column:2}#pad .l{grid-row:2;grid-column:1}#pad .d{grid-row:2;grid-column:2}#pad .r{grid-row:2;grid-column:3}
+@media (pointer:coarse){#pad{display:grid}.hint{display:none}#panel{bottom:calc(138px + env(safe-area-inset-bottom,0px));max-height:34vh}}
+#msg{position:fixed;inset:0;display:none;place-items:center;text-align:center;padding:30px;background:var(--bg)}
+#msg.on{display:grid}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud">
+<b id="t-title">Jéssica Chaves · Portfólio 3D</b>
+<div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-l="pt" aria-pressed="true">PT-BR</button><button type="button" data-l="en" aria-pressed="false">EN-US</button></div>
+<a class="btn main" id="t-classic" href="index.html">Ver versão clássica</a>
+</div>
+<nav class="stops" id="stops" aria-label="Seções"></nav>
+<div class="hint" id="t-hint"></div>
+<section id="panel" aria-live="polite"></section>
+<div id="pad" aria-hidden="true"><button class="u" data-k="up">▲</button><button class="l" data-k="left">◀</button><button class="d" data-k="down">▼</button><button class="r" data-k="right">▶</button></div>
+<div id="msg"><div><p id="t-fail"></p><a class="btn main" href="index.html" id="t-fail-a">Abrir versão clássica</a></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var L=(function(){try{return localStorage.getItem('lang')}catch(e){return null}})()||'pt';
+var UI={pt:{title:'Jéssica Chaves · Portfólio 3D',classic:'Ver versão clássica',hint:'Setas ou WASD para dirigir. Chegue perto de uma placa.',fail:'Não foi possível carregar o mundo 3D neste aparelho. A versão clássica tem o mesmo conteúdo.',failA:'Abrir versão clássica',full:'Ver detalhes completos →',code:'Ver código'},
+en:{title:'Jéssica Chaves · 3D Portfolio',classic:'View classic version',hint:'Arrow keys or WASD to drive. Get close to a sign.',fail:'The 3D world could not load on this device. The classic version has the same content.',failA:'Open classic version',full:'See full details →',code:'View code'}};
+var S=[
+{k:'about',n:{pt:'Sobre',en:'About'},h:{
+pt:'<p>Desenvolvedora Back-end com 6 anos de experiência em Node.js, TypeScript e Python.</p><p class="m">APIs REST, microsserviços, automação, integração de sistemas e IA aplicada, em ambientes corporativos de grande porte (TIM Brasil).</p>',
+en:'<p>Back-end Developer with 6 years of experience in Node.js, TypeScript and Python.</p><p class="m">REST APIs, microservices, automation, systems integration and applied AI in large corporate environments (TIM Brasil).</p>'}},
+{k:'exp',n:{pt:'Experiência',en:'Experience'},h:{
+pt:'<ul><li><b>Altran</b> · projeto TIM Brasil <span class="m">· Mai/2025 – atual</span></li><li><b>Líder BPO</b> <span class="m">· Out/2023 – Mai/2025</span></li><li><b>Triad Systems</b> <span class="m">· Out/2021 – Out/2023</span></li><li><b>Atento Brasil</b> <span class="m">· Dez/2020 – Set/2021</span></li></ul><a href="index.html#experiencia">%full</a>',
+en:'<ul><li><b>Altran</b> · TIM Brasil project <span class="m">· May/2025 – present</span></li><li><b>BPO Lead</b> <span class="m">· Oct/2023 – May/2025</span></li><li><b>Triad Systems</b> <span class="m">· Oct/2021 – Oct/2023</span></li><li><b>Atento Brasil</b> <span class="m">· Dec/2020 – Sep/2021</span></li></ul><a href="index.html#experiencia">%full</a>'}},
+{k:'proj',n:{pt:'Projetos',en:'Projects'},h:{
+pt:'<ul><li><b>EduReforço</b>: SaaS de reforço escolar com IA. <a href="https://github.com/Jessicachaves/edureforco-app" target="_blank" rel="noopener">%code</a></li><li><b>Meta CAPI</b>: tracking server-side com webhooks e HMAC. <a href="https://github.com/Jessicachaves/api-tracking-server" target="_blank" rel="noopener">%code</a></li><li><b>Radar de Preços</b>: comparador multilojas com bot do Telegram. <a href="https://github.com/Jessicachaves/price-hunter-bot" target="_blank" rel="noopener">%code</a></li></ul>',
+en:'<ul><li><b>EduReforço</b>: AI-powered tutoring SaaS. <a href="https://github.com/Jessicachaves/edureforco-app" target="_blank" rel="noopener">%code</a></li><li><b>Meta CAPI</b>: server-side tracking with webhooks and HMAC. <a href="https://github.com/Jessicachaves/api-tracking-server" target="_blank" rel="noopener">%code</a></li><li><b>Price Radar</b>: multi-store price comparison with a Telegram bot. <a href="https://github.com/Jessicachaves/price-hunter-bot" target="_blank" rel="noopener">%code</a></li></ul>'}},
+{k:'skills',n:{pt:'Competências',en:'Skills'},h:{
+pt:'<ul><li><b>Back-end:</b> Node.js, TypeScript, Python, FastAPI, Express</li><li><b>Cloud e DevOps:</b> GCP, Azure, Docker, Nginx, CI/CD</li><li><b>Dados:</b> MySQL, SQL Server, PostgreSQL, MongoDB</li><li><b>Automação e IA:</b> Power Automate, RPA, LLMs, OCR</li></ul><a href="index.html#competencias">%full</a>',
+en:'<ul><li><b>Back-end:</b> Node.js, TypeScript, Python, FastAPI, Express</li><li><b>Cloud &amp; DevOps:</b> GCP, Azure, Docker, Nginx, CI/CD</li><li><b>Data:</b> MySQL, SQL Server, PostgreSQL, MongoDB</li><li><b>Automation &amp; AI:</b> Power Automate, RPA, LLMs, OCR</li></ul><a href="index.html#competencias">%full</a>'}},
+{k:'contact',n:{pt:'Contato',en:'Contact'},h:{
+pt:'<p>Vamos conversar? Estou aberta a novos desafios.</p><ul><li><a href="mailto:jessikavond@gmail.com">jessikavond@gmail.com</a></li><li><a href="https://www.linkedin.com/in/jessica-jesus-chaves/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/Jessicachaves" target="_blank" rel="noopener">GitHub</a></li></ul>',
+en:'<p>Let\'s talk? I\'m open to new challenges.</p><ul><li><a href="mailto:jessikavond@gmail.com">jessikavond@gmail.com</a></li><li><a href="https://www.linkedin.com/in/jessica-jesus-chaves/" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://github.com/Jessicachaves" target="_blank" rel="noopener">GitHub</a></li></ul>'}}];
+var $=function(id){return document.getElementById(id)},panel=$('panel'),cur=-1;
+function ui(){var u=UI[L];document.documentElement.lang=L==='en'?'en':'pt-BR';$('t-title').textContent=u.title;$('t-classic').textContent=u.classic;$('t-hint').textContent=u.hint;$('t-fail').textContent=u.fail;$('t-fail-a').textContent=u.failA;document.title=u.title;
+[].forEach.call(document.querySelectorAll('.lang button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===L)});
+[].forEach.call($('stops').children,function(b,i){b.textContent=S[i].n[L]});S.forEach(function(s){if(s.lb){var n=label(s.n[L]);s.lb.material.map=n.material.map;s.lb.material.needsUpdate=true}});render(true)}
+function render(f){if(cur<0){panel.classList.remove('on');return}var s=S[cur],u=UI[L];
+panel.innerHTML='<h2>'+s.n[L]+'</h2>'+s.h[L].replace(/%full/g,u.full).replace(/%code/g,u.code);panel.classList.add('on')}
+$('stops').innerHTML=S.map(function(s,i){return '<button type="button" data-i="'+i+'"></button>'}).join('');
+[].forEach.call(document.querySelectorAll('.lang button'),function(b){b.addEventListener('click',function(){L=b.getAttribute('data-l');try{localStorage.setItem('lang',L)}catch(e){}ui()})});
+
+if(!window.THREE){$('msg').classList.add('on');ui();return}
+var renderer;try{renderer=new THREE.WebGLRenderer({canvas:$('c'),antialias:true})}catch(e){$('msg').classList.add('on');ui();return}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var scene=new THREE.Scene();scene.background=new THREE.Color(0x1b1228);scene.fog=new THREE.Fog(0x1b1228,40,130);
+var cam=new THREE.PerspectiveCamera(60,1,.1,300);
+scene.add(new THREE.HemisphereLight(0xd9c9ff,0x2a1a3a,.9));
+var sun=new THREE.DirectionalLight(0xffd9e0,.8);sun.position.set(30,50,20);scene.add(sun);
+var R=62;
+var ground=new THREE.Mesh(new THREE.CircleGeometry(R+6,64),new THREE.MeshLambertMaterial({color:0x2a1d3e}));ground.rotation.x=-Math.PI/2;scene.add(ground);
+var grid=new THREE.GridHelper((R+6)*2,40,0x4a3566,0x35294a);grid.position.y=.02;scene.add(grid);
+var edge=new THREE.Mesh(new THREE.RingGeometry(R+5,R+6,64),new THREE.MeshBasicMaterial({color:0xff7a90,side:THREE.DoubleSide}));edge.rotation.x=-Math.PI/2;edge.position.y=.05;scene.add(edge);
+// árvores e blocos decorativos
+var seed=7;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+var P=[];var SD=30;
+S.forEach(function(s,i){var a=i*Math.PI*2/S.length;s.x=Math.sin(a)*SD;s.z=Math.cos(a)*SD;});
+var tg=new THREE.ConeGeometry(1.4,4,6),tm=new THREE.MeshLambertMaterial({color:0x3b2a58,flatShading:true}),bm=new THREE.MeshLambertMaterial({color:0x4a3566,flatShading:true}),bg=new THREE.BoxGeometry(2,2,2);
+for(var i=0;i<70;i++){var x,z,ok,t=0;do{var a=rnd()*Math.PI*2,r=8+rnd()*(R-8);x=Math.sin(a)*r;z=Math.cos(a)*r;ok=S.every(function(s){return Math.hypot(s.x-x,s.z-z)>9});t++}while(!ok&&t<20);if(!ok)continue;
+var m=rnd()<.7?new THREE.Mesh(tg,tm):new THREE.Mesh(bg,bm);var sc=.7+rnd()*.9;m.scale.setScalar(sc);m.position.set(x,m.geometry===tg?2*sc:sc,z);m.rotation.y=rnd()*6;scene.add(m)}
+// estações
+function label(t){var c=document.createElement('canvas');c.width=512;c.height=128;var g=c.getContext('2d');g.fillStyle='#1e1730';g.fillRect(0,0,512,128);g.strokeStyle='#ff7a90';g.lineWidth=6;g.strokeRect(3,3,506,122);g.fillStyle='#f1ecf7';g.font='bold 54px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(t,256,68);var tx=new THREE.CanvasTexture(c);var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true}));sp.scale.set(8,2,1);return sp}
+S.forEach(function(s,i){var g=new THREE.Group();g.position.set(s.x,0,s.z);
+var ring=new THREE.Mesh(new THREE.RingGeometry(4,5,48),new THREE.MeshBasicMaterial({color:0xff7a90,side:THREE.DoubleSide,transparent:true,opacity:.8}));ring.rotation.x=-Math.PI/2;ring.position.y=.08;g.add(ring);
+var beam=new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,6,10),new THREE.MeshBasicMaterial({color:0xff9fb0,transparent:true,opacity:.55}));beam.position.y=3;g.add(beam);
+var gem=new THREE.Mesh(new THREE.OctahedronGeometry(.9),new THREE.MeshLambertMaterial({color:0xff7a90,emissive:0x802040,flatShading:true}));gem.position.y=10.2;g.add(gem);
+var lb=label(s.n[L]);lb.position.y=7.4;g.add(lb);s.g=g;s.ring=ring;s.gem=gem;s.lb=lb;scene.add(g)});
+// carro
+var car=new THREE.Group(),mb=new THREE.MeshLambertMaterial({color:0xff7a90,flatShading:true});
+var body=new THREE.Mesh(new THREE.BoxGeometry(2,.8,4),mb);body.position.y=.9;car.add(body);
+var cab=new THREE.Mesh(new THREE.BoxGeometry(1.6,.7,2),new THREE.MeshLambertMaterial({color:0xf1ecf7,flatShading:true}));cab.position.set(0,1.6,-.2);car.add(cab);
+var wg=new THREE.CylinderGeometry(.5,.5,.4,14),wm=new THREE.MeshLambertMaterial({color:0x120c1a});
+[[-1.1,1.3],[1.1,1.3],[-1.1,-1.3],[1.1,-1.3]].forEach(function(p){var w=new THREE.Mesh(wg,wm);w.rotation.z=Math.PI/2;w.position.set(p[0],.5,p[1]);car.add(w)});
+[[-.6],[.6]].forEach(function(p){var h=new THREE.Mesh(new THREE.BoxGeometry(.4,.25,.1),new THREE.MeshBasicMaterial({color:0xffe9a8}));h.position.set(p[0],1,2.02);car.add(h)});
+scene.add(car);
+var st={x:0,z:-6,h:0,v:0},keys={};
+function place(i){var s=S[i],d=5.5,dx=s.x/SD,dz=s.z/SD;st.x=s.x-dx*d;st.z=s.z-dz*d;st.h=Math.atan2(dx,dz);st.v=0}
+$('stops').addEventListener('click',function(e){var b=e.target.closest('button');if(b)place(+b.getAttribute('data-i'))});
+var map={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right'};
+addEventListener('keydown',function(e){if(map[e.code]){keys[map[e.code]]=1;e.preventDefault()}});
+addEventListener('keyup',function(e){if(map[e.code])keys[map[e.code]]=0});
+addEventListener('blur',function(){keys={}});
+[].forEach.call(document.querySelectorAll('#pad button'),function(b){var k=b.getAttribute('data-k');
+['pointerdown'].forEach(function(ev){b.addEventListener(ev,function(e){keys[k]=1;e.preventDefault()})});
+['pointerup','pointerleave','pointercancel'].forEach(function(ev){b.addEventListener(ev,function(){keys[k]=0})})});
+function size(){var w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.fov=w<h?72:60;cam.updateProjectionMatrix()}
+addEventListener('resize',size);size();
+var last=performance.now(),cp=new THREE.Vector3(0,6,-16);
+function loop(now){requestAnimationFrame(loop);var dt=Math.min((now-last)/1000,.05);last=now;var t=now/1000;
+var acc=(keys.up?1:0)-(keys.down?1:0),MAX=17;
+if(acc>0)st.v+=24*dt;else if(acc<0)st.v-=(st.v>0?34:16)*dt;else st.v-=Math.sign(st.v)*Math.min(Math.abs(st.v),9*dt);
+st.v=Math.max(-7,Math.min(MAX,st.v));
+var turn=(keys.left?1:0)-(keys.right?1:0);st.h+=turn*2.1*dt*Math.max(-1,Math.min(1,st.v/6));
+st.x+=Math.sin(st.h)*st.v*dt;st.z+=Math.cos(st.h)*st.v*dt;
+var d=Math.hypot(st.x,st.z);if(d>R){st.x*=R/d;st.z*=R/d;st.v*=.5}
+car.position.set(st.x,0,st.z);car.rotation.y=st.h;car.rotation.z=-turn*.04*Math.min(1,Math.abs(st.v)/10);
+var tx=st.x-Math.sin(st.h)*10,tz=st.z-Math.cos(st.h)*10;cp.x+=(tx-cp.x)*Math.min(1,4*dt);cp.z+=(tz-cp.z)*Math.min(1,4*dt);cp.y=6.5;
+cam.position.copy(cp);var po=innerWidth<innerHeight,lo=po?-4:2.5;cam.lookAt(st.x+Math.sin(st.h)*lo,po?.5:2.6,st.z+Math.cos(st.h)*lo);
+var near=-1,best=7.5;S.forEach(function(s,i){var dd=Math.hypot(s.x-st.x,s.z-st.z);s.ring.scale.setScalar(1+Math.sin(t*3+i)*.05+(dd<best?.12:0));s.ring.material.opacity=dd<7.5?1:.6;s.gem.rotation.y=t*1.2;s.gem.position.y=10.2+Math.sin(t*2+i)*.3;if(dd<best){best=dd;near=i}});
+if(near!==cur){cur=near;render()}
+renderer.render(scene,cam)}
+ui();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
